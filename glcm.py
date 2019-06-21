@@ -37,13 +37,13 @@ def calc(mat):
 			idm += mat[i, j] / (1 + (i - j) ** 2)
 	return asm, ent, con, idm
 
-# if __name__ == '__main__':
-	# fps = ['./new/1.0/IMG20190614092852.jpg', 
-	# 		'./new/1.5/IMG20190614101044.jpg', 
-	# 		'./new/2.0/IMG20190614105601.jpg', 
-	# 		'./new/2.5/IMG20190614124857.jpg']
-	# # import getfileslist as gfl
-	# # fps = gfl.getFilesList('./new/2.5/')
+if __name__ == '__main__':
+	fps = ['./new/1.0/IMG20190614092852.jpg', 
+			'./new/1.5/IMG20190614101044.jpg', 
+			'./new/2.0/IMG20190614105601.jpg', 
+			'./new/2.5/IMG20190614124857.jpg']
+	# import getfileslist as gfl
+	# fps = gfl.getFilesList('./new/2.5/')
 	# for fp in fps:
 	# 	img = cv2.imread(fp)
 	# 	img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -54,3 +54,25 @@ def calc(mat):
 	# 		mat = unif(mat)
 	# 		# print(sum(sum(mat)))
 	# 		print(calc(mat))
+
+	with open('./data.csv', 'w') as file:
+		s = 1.0
+		for f in fps:
+			print(f)
+			file.write(str(s))
+			s += 0.5
+			file.flush()
+			img = cv2.imread(f)
+			img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+			for a, b in [(1, 0), (1, 1), (0, 1), (-1, 1)]:
+				mat = glcm(img_gray, a, b, gray_level=16)
+				# print(mat)
+				mat = unif(mat)
+				# print(sum(sum(mat)))
+				res = calc(mat)
+				print(res)
+				for i in res:
+					file.write(',' + str(i))
+					file.flush()
+			file.write('\n')
+			file.flush()
