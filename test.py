@@ -1,10 +1,10 @@
 import glcm
 import cv2
 import numpy as np
-from sklearn.externals import joblib
+import joblib
 from sklearn import preprocessing
 
-testImgPath = './old/2.0.jpg'
+testImgPath = './new/1.0.jpg'
 modelPath = './models/model.m'
 
 scale = False
@@ -17,7 +17,7 @@ for a, b in [(1, 0), (1, 1), (0, 1), (-1, 1)]:
 	mat = glcm.glcm(img_grey, a, b, gray_level=16)
 	mat = glcm.unif(mat)
 	res += glcm.calc(mat)
-	print(res)
+	print(np.array([res]))
 
 model = joblib.load(modelPath)
 
@@ -26,4 +26,4 @@ X_data = poly_reg.fit_transform(np.array([res]))
 if scale:
     X_data = preprocessing.scale(X_data)
 
-print((model.predict(X_data) + 1) / 2)
+print(int(model.predict(X_data) + 1.5) / 2)

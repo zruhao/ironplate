@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 import getfileslist as gfl
 
-imgsdir = './data/'
+imgsdir = './data/new'
 datafile = './data.csv'
 
 if imgsdir[-1] != '/':
