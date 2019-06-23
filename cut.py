@@ -3,7 +3,7 @@ import numpy as np
 import os
 import getfileslist as gfl
 
-oldPath = './data/'
+oldPath = './old/'
 newPath = './new/'
 
 # 统一路径名格式
